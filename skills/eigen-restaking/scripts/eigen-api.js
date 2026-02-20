@@ -144,12 +144,11 @@ class EigenAPI {
     }
 
     /**
-     * Get historical metrics.
+     * Get historical TVL metrics.
      * @param {object} opts
-     * @param {string} [opts.frequency] - 'daily', 'weekly', etc.
      */
     async getHistoricalMetrics(opts = {}) {
-        const { data } = await this.client.get('/metrics/historical', {
+        const { data } = await this.client.get('/metrics/historical/tvl', {
             params: opts,
         });
         return data;
@@ -158,11 +157,22 @@ class EigenAPI {
     // ─── Events ───────────────────────────────────────────
 
     /**
-     * Get on-chain EigenLayer events.
+     * Get delegation events (shares increased/decreased, staker delegated/undelegated).
      * @param {object} opts
      */
-    async getEvents(opts = {}) {
-        const { data } = await this.client.get('/events', {
+    async getDelegationEvents(opts = {}) {
+        const { data } = await this.client.get('/events/delegation', {
+            params: { skip: opts.skip || 0, take: opts.take || 12 },
+        });
+        return data;
+    }
+
+    /**
+     * Get operator registration/deregistration events.
+     * @param {object} opts
+     */
+    async getRegistrationEvents(opts = {}) {
+        const { data } = await this.client.get('/events/registration-status', {
             params: { skip: opts.skip || 0, take: opts.take || 12 },
         });
         return data;

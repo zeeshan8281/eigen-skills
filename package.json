@@ -1,6 +1,6 @@
 {
     "name": "eigen-skills",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Agent Skills for EigenLayer — restaking, AVS, operators, rewards, delegation data powered by EigenExplorer API",
     "main": "index.js",
     "agents": {

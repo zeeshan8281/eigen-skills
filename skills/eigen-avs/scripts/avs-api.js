@@ -102,26 +102,12 @@ class AVSAPI {
     // ─── AVS Registration Events ──────────────────────────
 
     /**
-     * Get registration events for a specific AVS.
+     * Get registration/deregistration events for a specific AVS.
      * @param {string} avsAddress
      * @param {object} opts
      */
     async getAVSRegistrationEvents(avsAddress, opts = {}) {
-        const { data } = await this.client.get(`/avs/${avsAddress}/events/registration`, {
-            params: { skip: opts.skip || 0, take: opts.take || 12 },
-        });
-        return data;
-    }
-
-    // ─── Operator-Sets per AVS ────────────────────────────
-
-    /**
-     * Get operator sets for a specific AVS.
-     * @param {string} avsAddress
-     * @param {object} opts
-     */
-    async getAVSOperatorSets(avsAddress, opts = {}) {
-        const { data } = await this.client.get(`/avs/${avsAddress}/operator-sets`, {
+        const { data } = await this.client.get(`/avs/${avsAddress}/events/registration-status`, {
             params: { skip: opts.skip || 0, take: opts.take || 12 },
         });
         return data;

@@ -39,7 +39,7 @@ class DelegationAPI {
         };
         if (opts.type) params.type = opts.type;
 
-        const { data } = await this.client.get('/events', { params });
+        const { data } = await this.client.get('/events/delegation', { params });
         return data;
     }
 
@@ -62,64 +62,6 @@ class DelegationAPI {
             tvl: data.tvl,
             avsRegistrations: data.avsRegistrations,
         };
-    }
-
-    /**
-     * Get all stakers delegating to a specific operator.
-     * @param {string} operatorAddress
-     * @param {object} opts
-     */
-    async getOperatorStakers(operatorAddress, opts = {}) {
-        const { data } = await this.client.get(`/operators/${operatorAddress}/stakers`, {
-            params: { skip: opts.skip || 0, take: opts.take || 12 },
-        });
-        return data;
-    }
-
-    // ─── Staker Delegation ────────────────────────────────
-
-    /**
-     * Get which operator a staker has delegated to and their position details.
-     * @param {string} stakerAddress
-     */
-    async getStakerDelegation(stakerAddress) {
-        const { data } = await this.client.get(`/stakers/${stakerAddress}`);
-        return data;
-    }
-
-    /**
-     * Get a staker's withdrawal history (partial/full undelegations).
-     * @param {string} stakerAddress
-     * @param {object} opts
-     */
-    async getStakerWithdrawals(stakerAddress, opts = {}) {
-        const { data } = await this.client.get(`/stakers/${stakerAddress}/withdrawals`, {
-            params: { skip: opts.skip || 0, take: opts.take || 12 },
-        });
-        return data;
-    }
-
-    // ─── Operator-Sets ────────────────────────────────────
-
-    /**
-     * Get all operator-sets (the new slashing-era grouping model).
-     * @param {object} opts
-     */
-    async getOperatorSets(opts = {}) {
-        const { data } = await this.client.get('/operator-sets', {
-            params: { skip: opts.skip || 0, take: opts.take || 12 },
-        });
-        return data;
-    }
-
-    /**
-     * Get a specific operator-set by AVS address + operatorSetId.
-     * @param {string} avsAddress
-     * @param {string} operatorSetId
-     */
-    async getOperatorSet(avsAddress, operatorSetId) {
-        const { data } = await this.client.get(`/operator-sets/${avsAddress}/${operatorSetId}`);
-        return data;
     }
 
     // ─── Top Delegated Operators ──────────────────────────

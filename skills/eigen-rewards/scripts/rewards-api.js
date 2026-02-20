@@ -23,46 +23,11 @@ class RewardsAPI {
         });
     }
 
-    // ─── Global Rewards ───────────────────────────────────
-
-    /**
-     * Get all rewards data.
-     * @param {object} opts
-     */
-    async getRewards(opts = {}) {
-        const { data } = await this.client.get('/rewards', {
-            params: { skip: opts.skip || 0, take: opts.take || 12 },
-        });
-        return data;
-    }
-
-    // ─── Operator Rewards ─────────────────────────────────
-
-    /**
-     * Get rewards info for a specific operator.
-     * Returns the reward strategies and tokens the operator receives.
-     * @param {string} operatorAddress
-     */
-    async getOperatorRewards(operatorAddress) {
-        const { data } = await this.client.get(`/operators/${operatorAddress}/rewards`);
-        return data;
-    }
-
-    // ─── Staker Rewards ───────────────────────────────────
-
-    /**
-     * Get staker rewards by address.
-     * @param {string} stakerAddress
-     */
-    async getStakerRewards(stakerAddress) {
-        const { data } = await this.client.get(`/stakers/${stakerAddress}/rewards`);
-        return data;
-    }
-
-    // ─── AVS Rewards ──────────────────────────────────────
+    // ─── AVS Rewards (only verified working rewards endpoint) ─────
 
     /**
      * Get rewards distributed by a specific AVS.
+     * Returns reward submission hashes, durations, tokens, and amounts.
      * @param {string} avsAddress
      */
     async getAVSRewards(avsAddress) {
